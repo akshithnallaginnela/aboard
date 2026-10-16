@@ -1,0 +1,14 @@
+.DS_Store
+.env
+.env.*
+!.env.example
+/node_modules/
+
+# React Router
+/.react-router/
+/build/
+/build-demo/
+
+# Test output
+/test-results/
+/playwright-report/

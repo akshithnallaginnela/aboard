@@ -1,0 +1,175 @@
+@import "tailwindcss";
+/* Self-hosted OFL fonts (licenses in public/licenses). Only the weights the design uses. */
+@import "@fontsource/newsreader/latin-500.css";
+@import "@fontsource/public-sans/latin-400.css";
+@import "@fontsource/public-sans/latin-ext-400.css";
+@import "@fontsource/public-sans/latin-600.css";
+@import "@fontsource/public-sans/latin-ext-600.css";
+
+/* "Letters across borders" semantic tokens (docs/DESIGN-SYSTEM.md §3).
+   The default Tailwind palette is removed so components can only use these names. */
+@theme {
+  --color-*: initial;
+  --color-white: #ffffff;
+  --color-black: #000000;
+
+  --color-canvas: #f7f3e9;
+  --color-surface: #ffffff;
+  --color-ink: #193744;
+  --color-muted-ink: #536266;
+  --color-primary: #23594b;
+  --color-primary-hover: #1b473c;
+  --color-on-primary: #ffffff;
+  --color-accent: #e3af51;
+  --color-accent-soft: #f6e7c8;
+  --color-soft-context: #dce7df;
+  --color-danger: #a4462f;
+  --color-danger-hover: #8a3926;
+  --color-danger-soft: #f7e4de;
+  --color-control-border: #7b8580;
+  --color-divider: #d7ddd6;
+
+  --font-serif: "Newsreader", Georgia, "Times New Roman", serif;
+  --font-sans: "Public Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans", Arial,
+    sans-serif;
+
+  --radius-input: 4px;
+  --radius-button: 6px;
+  --radius-panel: 10px;
+
+  --shadow-dialog: 0 18px 48px -12px rgb(25 55 68 / 0.28);
+
+  --animate-fade-in: ca-fade-in 180ms ease-out;
+  --animate-rise-in: ca-rise-in 200ms ease-out;
+
+  @keyframes ca-fade-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  @keyframes ca-rise-in {
+    from {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--color-canvas);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    line-height: 1.55;
+    min-height: 100dvh;
+    overflow-wrap: break-word;
+  }
+
+  /* Long multilingual names and unbroken text must wrap instead of overflowing at 320px. */
+  h1,
+  h2,
+  h3,
+  h4,
+  p,
+  li,
+  dd,
+  dt,
+  label,
+  a {
+    overflow-wrap: anywhere;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    text-wrap: balance;
+  }
+
+  a {
+    color: inherit;
+  }
+
+  ::placeholder {
+    color: var(--color-muted-ink);
+    opacity: 1;
+  }
+
+  /* Two-layer focus indicator: 2px white halo + 3px ink ring (DESIGN-SYSTEM §3). */
+  :where(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
+    outline: 3px solid var(--color-ink);
+    outline-offset: 2px;
+    box-shadow: 0 0 0 2px var(--color-white);
+  }
+
+  /* Programmatic focus targets (page headings, error summaries) get a quieter ring. */
+  :where(h1, h2, [data-focus-target])[tabindex="-1"]:focus {
+    outline: none;
+  }
+  :where(h1, h2, [data-focus-target])[tabindex="-1"]:focus-visible {
+    outline: 3px solid var(--color-ink);
+    outline-offset: 4px;
+    box-shadow: none;
+  }
+
+  @media (forced-colors: active) {
+    :where(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
+      outline: 3px solid CanvasText;
+      box-shadow: none;
+    }
+  }
+
+  input[type="checkbox"],
+  input[type="radio"] {
+    accent-color: var(--color-primary);
+  }
+}
+
+@layer components {
+  .skip-link {
+    position: absolute;
+    left: 1rem;
+    top: -100px;
+    z-index: 100;
+    background: var(--color-ink);
+    color: var(--color-white);
+    padding: 0.75rem 1rem;
+    border-radius: var(--radius-button);
+    font-weight: 600;
+  }
+  .skip-link:focus {
+    top: 1rem;
+  }
+
+  /* Editorial body copy width on public pages (~60-68ch). */
+  .prose-editorial {
+    max-width: 66ch;
+  }
+  .prose-editorial > * + * {
+    margin-top: 1rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  ::before,
+  ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

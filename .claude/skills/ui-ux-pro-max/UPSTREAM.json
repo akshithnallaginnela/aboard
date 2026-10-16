@@ -1,0 +1,14 @@
+{
+  "repository": "https://github.com/nextlevelbuilder/ui-ux-pro-max-skill",
+  "commit": "56ea9cf174ed86786187daa9de0e6247cb0747e4",
+  "retrieved_date": "2026-10-16",
+  "license": "MIT",
+  "upstream_paths": {
+    "SKILL.md": ".claude/skills/ui-ux-pro-max/SKILL.md",
+    "scripts": "src/ui-ux-pro-max/scripts",
+    "data": "src/ui-ux-pro-max/data",
+    "references": ".claude/skills/ui-ux-pro-max/references",
+    "LICENSE": "LICENSE"
+  },
+  "project_overrides": "../connectabroad-design/SKILL.md"
+}
